@@ -3,6 +3,8 @@ var router = express.Router();
 const multer  = require('multer')
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const {log} = require("debug");
+
 const  db ="mongodb+srv://khactuan2312:khactuan@cluster0.dhfhw.mongodb.net/ontap?retryWrites=true&w=majority";
 router.use(bodyParser.urlencoded({
   extended: true
@@ -141,6 +143,21 @@ router.post("/Delete", function (req, res,) {
       console.log(err.message);
     }
   })
+})
+router.post("/DeleteinPage", async function (req, res,next) {
+  let _id = req.body.xoatheoid;
+  console.log(req.body.xoatheoid, "body delete")
+
+    xe.deleteOne({_id: _id}, function (err) {
+      if (err == null) {
+        console.log("xoa thanh cong")
+        res.redirect("/List");
+      } else {
+        console.log(err.message, "err delete");
+      }
+    })
+
+
 })
 
 
